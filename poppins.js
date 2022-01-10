@@ -66,10 +66,10 @@ function positionPoppin(id, reference, event) {
     // Reference data is the element clicked (or if we pass in the event we grab the exact click location)
     var reference_data = !event ? $('#' + reference)[0].getBoundingClientRect() : { left: event.x, top: event.y, height: 0, width: 0 };
     var picture_included = $('.additional-options-image').length > 0 ? true : false;
-    included_picture_metrics = picture_included ? $('.additional-options-image')[0].getBoundingClientRect() : 0;
+    var included_picture_metrics = picture_included ? $('.additional-options-image')[0].getBoundingClientRect() : 0;
     // Get our poppin's exact height and width and then prep it for animation
-    poppin_width = $('#' + id).width();
-    poppin_height = $('#' + id).height();
+    var poppin_width = $('#' + id).width();
+    var poppin_height = $('#' + id).height();
     $('#' + id).css({ 'transform': 'scale3d(0,0,0)', 'top': '', 'left': '' });
     $('.additional-options-image').css({ 'transform': 'scale3d(0,0,0)' });
 

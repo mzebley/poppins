@@ -42,7 +42,7 @@ function poppinTemplates(id, data) {
     return new_poppin
 };
 
-function buildPoppin(id, reference, show, event, data) {
+export function buildPoppin(id, reference, show, event, data) {
     // ID - id of desired poppin from map
     // REFERENCE - id of element clicked to trigger poppin
     // SHOW - true/false trigger or remove poppin

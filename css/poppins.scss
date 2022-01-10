@@ -33,6 +33,12 @@ $poppins_box_shadow: 0px 0.1px 0.9px rgba(var(--poppins_shadow_rgba_numbers), 0.
     transform: scale3d(.975,.975,1);
 }
 
+.poppins-icon {
+    display: inline-block;
+    stroke: currentColor;
+    fill: currentColor;
+  }
+
 .poppins-item {
     position: fixed;
     transform-origin: top right;

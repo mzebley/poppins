@@ -3,6 +3,7 @@
     --poppins_blue_medium: #81A0D7;
     --poppins_highlight: rgba(244,193,200,.475);
     --poppins_background:rgba(255,255,255,.8575);
+    --poppins_hover:white;
     --poppins_shadow_rgba_numbers: 0, 0, 0;
     --poppins_border_color: rgba(11, 11, 19, .225);
 }
@@ -12,6 +13,7 @@
     --poppins_blue_medium: #2E62BD;
     --poppins_highlight: rgba(226,90,110,.25);
     --poppins_background:rgba(0,0,0,.7575);
+    --poppins_hover:black;
     --poppins_shadow_rgba_numbers: 85, 85, 85;
     --poppins_border_color: rgba(211, 211, 219, .295);
 }
@@ -111,9 +113,13 @@ $poppins_box_shadow: 0px 0.1px 0.9px rgba(var(--poppins_shadow_rgba_numbers), 0.
         }
 
         >div>svg {
-            opacity:.75;
+            opacity:.5;
             width: 30px;
             height: 22px;
+            display: inline-block;
+            stroke-width: 0;
+            stroke: currentColor;
+            fill: currentColor;
             &.larger {
                 height: 25px;
             }
@@ -226,7 +232,7 @@ $poppins_box_shadow: 0px 0.1px 0.9px rgba(var(--poppins_shadow_rgba_numbers), 0.
 
 @media (hover: hover) and (pointer: fine) {
     .poppins-item > div:not(.content):hover {
-        background:var(--theme-light);
+        background:var(--poppins_hover);
     }
     .poppins-content-indicator:hover {
         border-color:rgba(110,110,110,.5);

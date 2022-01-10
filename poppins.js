@@ -4,7 +4,12 @@ let arrow_svg = `<svg viewBox="0 0 32 32" role="img" aria-label="An arrow icon."
 
 function poppinTemplates(id, data) {
     var new_poppin = '<div class="poppins-dismissal" onclick="buildPoppin(null, null, false)"></div>';
-    if (id === 'list_menu') {
+    if (id === 'custom') {
+        new_poppin = new_poppin + `
+        <div class="poppins-item list-menu" style="left:-99999px;top:-999999px;opacity:0;" id="poppin-${id}">
+            ${data}
+        </div>`;
+    } else if (id === 'list_menu') {
         new_poppin = new_poppin + `
         <div class="poppins-item list-menu" style="left:-99999px;top:-999999px;opacity:0;" id="poppin-${id}">`
         data.forEach(function (item) {
@@ -54,7 +59,7 @@ export function buildPoppin(id, reference, show, event, data) {
         $(reference ? ('#' + reference) : '.nothing').addClass('poppins-shrink-back');
         $('body').css('overflow', 'hidden');
         // if ID === 'custom', treat DATA as the full poppin template
-        var poppin_element = id === 'custom' ? data : poppinTemplates(id, data);
+        var poppin_element = poppinTemplates(id, data);
         $('body').append(poppin_element);
         positionPoppin(id, reference, event);
     } else {
@@ -68,10 +73,10 @@ function positionPoppin(id, reference, event) {
     // Reference data is the element clicked (or if we pass in the event we grab the exact click location)
     var reference_data = !event ? $('#' + reference)[0].getBoundingClientRect() : { left: event.x, top: event.y, height: 0, width: 0 };
     var picture_included = $('.poppins-image').length > 0 ? true : false;
-    var included_picture_metrics = picture_included ? $('.poppins-image')[0].getBoundingClientRect() : 0;
+    var included_picture_metrics = picture_included ? $('.poppins-image')[0].getBoundingClientRect() : { height: 0, width: 0 };
     // Get our poppin's exact height and width and then prep it for animation
     var poppin_width = $('#poppin-' + id).width();
-    var poppin_height = $('#poppin-' + id).height();
+    var poppin_height = $('#poppin-' + id).height() + included_picture_metrics.height;
     $('#poppin-' + id).css({ 'transform': 'scale3d(0,0,0)', 'top': '', 'left': '' });
     $('.poppins-image').css({ 'transform': 'scale3d(0,0,0)' });
 
@@ -90,12 +95,15 @@ function positionPoppin(id, reference, event) {
         $('#poppin-' + id).css('right', ($(window).width() - (reference_data.left) - (reference_data.width - (event ? 0 : 16))));
 
     }
-    if ((reference_data.top + reference_data.height + poppin_height + (picture_included ? (included_picture_metrics.height + 16) : 0)) > $(window).height()) {
+    if ((reference_data.top + reference_data.height + poppin_height) > $(window).height()) {
         if ((reference_data.top + 16) - poppin_height < 0) $('#poppin-' + id).css('max-height', (reference_data.top + 16) + 'px');
-        $('#poppin-' + id).addClass('from-bottom');
-        $('#poppin-' + id).css('bottom', (($(window).height() - (reference_data.top)) + (event ? 0 : 16)));
-    } else if ((reference_data.top - (reference_data.height + poppin_height + (picture_included ? (included_picture_metrics.height + 16) : 0))) < 8) {
-        $('#poppin-' + id).css('top', 16);
+        if ((reference_data.top - (reference_data.height + poppin_height + (picture_included ? (included_picture_metrics.height + 16) : 0))) < 8) {
+            $('#poppin-' + id).css('top', 16);
+        } else {
+            $('#poppin-' + id).addClass('from-bottom');
+            $('#poppin-' + id).css('bottom', (($(window).height() - (reference_data.top)) + (event ? 0 : 16)));
+        }
+
     } else {
         $('#poppin-' + id).css('top', reference_data.top + (reference_data.height + (event ? 0 : 8)));
     }

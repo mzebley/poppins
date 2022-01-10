@@ -31,11 +31,11 @@ function poppinTemplates(id, data) {
                     ${data.content ? `<p>${data.content}</p>` : ''}
                 </div>
             </div>
-            ${data.link ? `
+            ${data.function ? `
             <div id="learn-more-btn" onclick="buildPoppin(null, null, false);${data.function};">
                 <div>
                     <p>${data.link_header ? data.link_header : 'Dive Deeper'}</p>
-                    <span class="full-width float-left text-small opacity-75">Via <b>${data.source}</b></span>
+                    ${data.source ? `<span class="full-width float-left text-small opacity-75">Via <b>${data.source}</b></span>` : ''}
                 </div>
                 <div>
                     <button class="blue small circle">

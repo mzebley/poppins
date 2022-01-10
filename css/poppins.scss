@@ -199,7 +199,7 @@ $poppins_box_shadow: 0px 0.1px 0.9px rgba(var(--poppins_shadow_rgba_numbers), 0.
             }
         }
     }
-    &.rectangle {
+    &.rectangle, &.landscape {
         width: 175px;
     }
 }

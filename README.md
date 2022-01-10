@@ -1,2 +1,2 @@
-# poppins
-Additional information, positioned based on click event.
+# Poppins.js
+Additional relevant information, intelligiently positioned based on click event.

@@ -24,11 +24,11 @@ function poppinTemplates(id, data) {
     } else if (id === 'additional_info') {
         new_poppin = new_poppin + `
         ${data.photo_link ? `<div class="poppins-image ${data.photo_layout}" style="background-image:url('${data.photo_link}')"><div class="square-jelly-box"><div></div><div></div></div></div>` : ''}
-        <div class="poppins-item text-medium" style="left:-99999px;top:-999999px;opacity:0;" id="poppin-${id}">
+        <div class="poppins-item" style="left:-99999px;top:-999999px;opacity:0;" id="poppin-${id}">
             <div class="content">
                 <div>
                     ${data.title ? `<p class="title">${data.title}</p>` : ''}
-                    ${data.content ? `<p>${data.content}</p>` : ''}
+                    ${data.content ? `${data.content}` : ''}
                 </div>
             </div>
             ${data.function ? `

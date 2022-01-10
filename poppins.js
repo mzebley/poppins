@@ -1,13 +1,13 @@
 let arrow_svg = `<svg viewBox="0 0 32 32" role="img" aria-label="An arrow icon." class="icon blue"><path d="M32 16.010q0-1.452-0.935-2.387l-9.924-9.924q-1.014-1.014-2.227-1.014-1.472 0-2.347 0.885t-0.875 2.178q0 0.776 0.318 1.333t0.776 1.014l3.58 3.54 3.878 3.62 1.71-2.168-7.259-0.338h-15.234q-1.571 0-2.516 0.895t-0.945 2.367 0.945 2.367 2.516 0.895h15.234l7.259-0.338-1.71-2.168-3.878 3.62-3.58 3.52q-0.457 0.438-0.776 1.004t-0.318 1.342q0 1.293 0.875 2.178t2.347 0.885q1.213 0 2.227-1.014l9.924-9.904q0.935-0.935 0.935-2.387z"></path></svg>`;
 
 function poppinTemplates(id, data) {
-    var new_poppin = '<div class="additional-options-dismissal" onclick="poppin.buildPoppin(null, null, false)"></div>';
+    var new_poppin = '<div class="additional-options-dismissal" onclick="buildPoppin(null, null, false)"></div>';
     if (id === 'list_menu') {
         new_poppin = new_poppin + `
         <div class="additional-options info-item" style="left:-99999px;top:-999999px;opacity:0;max-width:220px" id="${id}">`
         data.forEach(function (item) {
             new_poppin = new_poppin + `
-            <div onclick="poppin.buildPoppin(null, null, false);${item.function};">
+            <div onclick="buildPoppin(null, null, false);${item.function};">
                 <div class="align-content-vertically"><p class="text-normal full-width">${item.content}</p></div>
                 <div>${item.svg_id ? `<svg class="icon ${item.color_class} opacity-5"><use xlink:href="#${item.svg_id}"></use></svg>` : arrow_svg}</div>
             </div>
@@ -25,7 +25,7 @@ function poppinTemplates(id, data) {
                 </div>
             </div>
             ${data.link ? `
-            <div id="learn-more-btn" onclick="poppin.buildPoppin(null, null, false);${data.function};">
+            <div id="learn-more-btn" onclick="buildPoppin(null, null, false);${data.function};">
                 <div class="align-content-vertically">
                     <p>${data.link_header ? data.link_header : 'Dive Deeper'}</p>
                     <span class="full-width float-left text-small opacity-75">Via <b>${data.source}</b></span>
@@ -125,3 +125,5 @@ function positionPoppin(id, reference, event) {
         }, 175);
     }
 };
+
+export {buildPoppin}

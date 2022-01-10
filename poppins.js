@@ -5,7 +5,7 @@ function poppinTemplates(id, data) {
     if (id === 'list_menu') {
         new_poppin = new_poppin + `
         <div class="additional-options info-item" style="left:-99999px;top:-999999px;opacity:0;max-width:220px" id="${id}">`
-        data.forEach(function(item){
+        data.forEach(function (item) {
             new_poppin = new_poppin + `
             <div onclick="poppin.buildPoppin(null, null, false);${item.function};">
                 <div class="align-content-vertically"><p class="text-normal full-width">${item.content}</p></div>
@@ -49,7 +49,7 @@ function buildPoppin(id, reference, show, event, data) {
     // EVENT - $event from click
     // DATA - object to map poppin template to
     if (show) {
-       $(reference ? ('#' + reference) : '.nothing').addClass('shrink-back');
+        $(reference ? ('#' + reference) : '.nothing').addClass('shrink-back');
         $('body').css('overflow', 'hidden');
         // if ID === 'custom', treat DATA as the full poppin template
         var poppin_element = id === 'custom' ? data : poppinTemplates(id, data);
@@ -92,6 +92,8 @@ function positionPoppin(id, reference, event) {
         if ((reference_data.top + 16) - poppin_height < 0) $('#' + id).css('max-height', (reference_data.top + 16) + 'px');
         $('#' + id).addClass('from-bottom');
         $('#' + id).css('bottom', (($(window).height() - (reference_data.top)) + (event ? 0 : 16)));
+    } else if ((reference_data.top - (reference_data.height + poppin_height + (picture_included ? (included_picture_metrics.height + 16) : 0))) < 8) {
+        $('#' + id).css('top', 16);
     } else {
         $('#' + id).css('top', reference_data.top + (reference_data.height + (event ? 0 : 8)));
     }

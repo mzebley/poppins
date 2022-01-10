@@ -125,5 +125,3 @@ function positionPoppin(id, reference, event) {
         }, 175);
     }
 };
-
-export {buildPoppin}

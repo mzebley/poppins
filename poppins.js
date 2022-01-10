@@ -1,213 +1,64 @@
+let arrow_svg = `<svg viewBox="0 0 32 32" role="img" aria-label="An arrow icon." class="icon blue"><path d="M32 16.010q0-1.452-0.935-2.387l-9.924-9.924q-1.014-1.014-2.227-1.014-1.472 0-2.347 0.885t-0.875 2.178q0 0.776 0.318 1.333t0.776 1.014l3.58 3.54 3.878 3.62 1.71-2.168-7.259-0.338h-15.234q-1.571 0-2.516 0.895t-0.945 2.367 0.945 2.367 2.516 0.895h15.234l7.259-0.338-1.71-2.168-3.878 3.62-3.58 3.52q-0.457 0.438-0.776 1.004t-0.318 1.342q0 1.293 0.875 2.178t2.347 0.885q1.213 0 2.227-1.014l9.924-9.904q0.935-0.935 0.935-2.387z"></path></svg>`;
+
 function poppinTemplates(id, data) {
-    var new_poppin = '';
-    if (id === 'mobile_menu') {
-        new_poppin = `
-        <div class="additional-options-dismissal" onclick="buildPoppin(null, null, false)"></div>
-        <div class="additional-options info-item" style="left:-99999px;top:-999999px;opacity:0;max-width:220px" id="${id}">
-            <div onclick="buildPoppin(null, null, false);navigate('?anchor=hero-photo');">
-                <div class="align-content-vertically"><p class="text-normal full-width">About Me</p></div>
-                <div><svg class="icon color-theme opacity-5"><use xlink:href="#icon-arrow"></use></svg></div>
+    var new_poppin = '<div class="additional-options-dismissal" onclick="poppin.buildPoppin(null, null, false)"></div>';
+    if (id === 'list_menu') {
+        new_poppin = new_poppin + `
+        <div class="additional-options info-item" style="left:-99999px;top:-999999px;opacity:0;max-width:220px" id="${id}">`
+        data.forEach(function(item){
+            new_poppin = new_poppin + `
+            <div onclick="poppin.buildPoppin(null, null, false);${item.function};">
+                <div class="align-content-vertically"><p class="text-normal full-width">${item.content}</p></div>
+                <div>${item.svg_id ? `<svg class="icon ${item.color_class} opacity-5"><use xlink:href="#${item.svg_id}"></use></svg>` : arrow_svg}</div>
             </div>
-            <div onclick="buildPoppin(null, null, false);navigate('professional')">
-                <div class="align-content-vertically"><p class="text-normal full-width">Professional Work</p></div>
-                <div class="align-content-vertically"><svg class="icon color-theme opacity-5"><use xlink:href="#icon-arrow"></use></svg></div>
-            </div>
-            <div onclick="buildPoppin(null, null, false);navigate('hobbyist');">
-                <div class="align-content-vertically"><p class="text-normal full-width">Hobbyist Work</p></div>
-                <div class="align-content-vertically"><svg class="icon color-theme opacity-5"><use xlink:href="#icon-arrow"></use></svg></div>
-            </div>
-            <div onclick="buildPoppin(null, null, false);navigate('shop');">
-                <div class="align-content-vertically"><p class="text-normal full-width">Merch Shop</p></div>
-                <div><svg class="icon color-theme opacity-5"><use xlink:href="#icon-arrow"></use></svg></div>
-            </div>
-            <div onclick="buildPoppin(null, null, false);navigate('?anchor=contact-form');">
-                <div class="align-content-vertically"><p class="text-normal full-width">Contact</p></div>
-                <div><svg class="icon color-theme opacity-5"><use xlink:href="#icon-arrow"></use></svg></div>
-            </div>
-        </div>`;
-    } else if (id === 'additional-info') {
-        var data_array = [{ 
-            id: 'water_bear_info', 
-            data: { 
-                photo_link: 'https://i.guim.co.uk/img/media/39669fd0fa5c0193955cba565e89aa1f29cec180/0_1063_3511_2105/master/3511.jpg?width=465&quality=45&auto=format&fit=max&dpr=2&s=71e4819d043defd64df9f5a795ea0512',
-                title: 'Tardigrade',
-                content: 'Often found with moss or lichen, happily chomping away at plant cells and algae.',
-                link: 'https://en.wikipedia.org/wiki/Tardigrade',
-                source: 'Wikipedia',
-                photo_layout: 'rectangle'
-            }
-        },{ 
-            id: 'toad_info', 
-            data: { 
-                title: "Toad",
-                content: `Science doesn't make a distinction between toads and frogs, but we generally consider toads as being associated with drier skin and more land-based habitats.`,
-                link: `https://en.wikipedia.org/wiki/Toad`,
-                source: 'Wikipedia',
-                photo_link: 'https://media.nature.com/lw800/magazine-assets/d41586-021-02317-9/d41586-021-02317-9_19590920.jpg',
-                photo_layout: 'rectangle',
-            }
-        },{ 
-            id: 'turkey_info', 
-            data: { 
-                title: "Turkey",
-                content: `A large bird native to North America. Super popular around Thanksgiving.`,
-                link: 'https://en.wikipedia.org/wiki/Turkey_(bird)',
-                source: 'Wikipedia',
-                photo_link: 'https://wehco.media.clients.ellingtoncms.com/img/photos/2021/04/09/1PB1_turkey_0410_t800.jpg?90232451fbcadccc64a17de7521d859a8f88077d',
-                photo_layout: 'square'
-            }
-        },{ 
-            id: 'turtle_info', 
-            data: { 
-                title: "Turtle",
-                content: `A member of the reptile order; most famously known for its shell.`,
-                link: 'https://en.wikipedia.org/wiki/Turtle',
-                source: 'Wikipedia',
-                photo_link: 'https://media.fisheries.noaa.gov/styles/full_width/s3/dam-migration/hawksbill_sea_turtle.jpg?itok=ESbU98wohttps://i.imgur.com/gbDP3e3.jpg',
-                photo_layout: 'rectangle'
-            }
-        },{ 
-            id: 'tomato_info', 
-            data: { 
-                title: "Tomato",
-                content: `English gets the word "tomato" from the Spanish "tomate" - which in turn comes from the native word "tomatl" meaning "fat thing."`,
-                link: `https://en.wikipedia.org/wiki/Tomato`,
-                source: 'Wikipedia',
-                photo_link: 'https://cdn3.volusion.com/ph9xz.o9ecs/v/vspfiles/photos/TF-0441-2.jpg?v-cache=1574096525',
-                photo_layout: 'rectangle',
-            }
-        }];
-        var info = data_array.filter(item => item.id === data)[0].data;
-        new_poppin = `
-        <div class="additional-options-dismissal" onclick="buildPoppin(null, null, false)"></div>
-        <div class="additional-options-image ${info.photo_layout}" style="background-image:url('${info.photo_link}')"><div class="square-jelly-box"><div></div><div></div></div></div>
-        <div class="additional-options info-item text-medium" style="left:-99999px;top:-999999px;opacity:0;max-width:220px" id="${id}">
+            `;
+        })
+        new_poppin = new_poppin + `</div>`;
+    } else if (id === 'additional_info') {
+        new_poppin = new_poppin + `
+        ${data.photo_link ? `<div class="additional-options-image ${data.photo_layout}" style="background-image:url('${data.photo_link}')"><div class="square-jelly-box"><div></div><div></div></div></div>` : ''}
+        <div class="additional-options info-item text-medium" style="left:-99999px;top:-999999px;opacity:0;" id="${id}">
             <div class="content">
                 <div>
-                    <p class="full-width title">${info.title}</p>
-                    ${info.content}
+                    <p class="full-width title">${data.title}</p>
+                    ${data.content}
                 </div>
             </div>
-            <div id="learn-more-btn" onclick="buildPoppin(null, null, false);navigate('${info.link}', true)">
+            ${data.link ? `
+            <div id="learn-more-btn" onclick="poppin.buildPoppin(null, null, false);${data.function};">
                 <div class="align-content-vertically">
-                    <p>Dive Deeper</p>
-                    <span class="full-width float-left text-small opacity-75">Via <b>${info.source}</b></span>
+                    <p>${data.link_header ? data.link_header : 'Dive Deeper'}</p>
+                    <span class="full-width float-left text-small opacity-75">Via <b>${data.source}</b></span>
                 </div>
                 <div class="align-content-vertically">
                     <button class="blue small circle">
-                        <svg class="icon"><use xlink:href="#icon-arrow"></use></svg>
+                        ${arrow_svg}
                     </button>
                 </div>
             </div>
-        </div>`;
-    } else if (id === 'invoice-approvals') {
-        var data_array = [{ 
-            id: 'invoice-1', 
-            data: { 
-                date: 'Tuesday<br>12/28/21 - 9:43am',
-                comment: 'The winter has been unseasonably warm, so it makes sense the bill looks lower than normal for a December.',
-                name: 'Josh Dunder',
-                role: 'Building Manager'
-            }
-        },{ 
-            id: 'invoice-2', 
-            data: { 
-                date: 'Monday<br>12/27/21 - 4:23pm',
-                comment: 'Work looks legit, they did a good job. The HVAC is back up and running.',
-                name: 'Caleb Pours',
-                role: 'Maintenance Tech'
-            }
-        }];
-        var info = data_array.filter(item => item.id === data)[0].data;
-        new_poppin = `
-        <div class="additional-options-dismissal" onclick="buildPoppin(null, null, false)"></div>
-        <div class="additional-options info-item text-medium" style="left:-99999px;top:-999999px;opacity:0;max-width:220px" id="${id}">
-            <div class="content">
-                <div>
-                    <p class="full-width title">${info.name}<span class="full-width float-left text-small opacity-5 sans-serif-font">${info.role}</span></p>
-                    "${info.comment}"
-                    <div class="block margin-top-8 text-medium"><b>${info.date}</b></div>
-                    <svg class="icon color-green position-absolute color-medium fade-from-bottom-bounce" style="width:18px;height:18px;opacity:0;top:12px;right:12px"><use xlink:href="#icon-thumb"></use></svg>
-                </div>
-            </div>
-        </div>`;
-    } else if (id === 'invoice-insights') {
-        var data_array = [{ 
-            id: 'invoice-1', 
-            data: {
-                content: `
-                <div class="block grid-block col-2 gap-8">
-                    <div><span class="full-width opacity-5 text-bold float-left text-small">Amount</span><b><span class="serif-font">$</span>234.56</b></div>
-                    <div><span class="full-width opacity-5 text-bold float-left text-small">Due Date</span><b>1/31/22</b></div>
-                </div>
-                <p class="full-width text-medium margin-top-8"><em>This is a recurring invoice.</em></p>
-                <span class="full-width opacity-5 margin-top-8 text-bold float-left text-small">Previous Month</span>
-                <div class="block gap-8">
-                    <b><span class="serif-font">$</span>248.92</b>
-                    <span class="full-width text-medium float-left">Utility Bill - November 2021</span>
-                    <span class="full-width text-small text-bold color-green float-left">Approved - 12/15/21</span>
-                </div>
-                <span class="full-width opacity-5 margin-top-8 text-bold float-left text-small">Previous Year</span>
-                <div class="block gap-8">
-                    <b><span class="serif-font">$</span>378.27</b>
-                    <span class="full-width text-medium float-left">Utility Bill - December 2020</span>
-                    <span class="full-width text-small text-bold color-green float-left">Approved - 12/17/20</span>
-                </div>
-                <svg class="icon position-absolute color-blue color-medium fade-from-bottom-bounce" style="width:24px;height:24px;opacity:0;top:12px;right:12px;"><use xlink:href="#icon-rays"></use></svg>`
-            }
-        },{ 
-            id: 'invoice-2', 
-            data: {
-                content: `
-                <div class="block grid-block col-2 gap-8">
-                    <div><span class="full-width opacity-5 text-bold float-left text-small">Amount</span><b><span class="serif-font">$</span>1,234.56</b></div>
-                    <div><span class="full-width opacity-5 text-bold float-left text-small">Due Date</span><b>1/6/22</b></div>
-                </div>
-                <p class="full-width text-medium margin-top-8"><em>This invoice is tied to the work order <b>HVAC Broke - URGENT</b>.</em></p>
-                <span class="full-width opacity-5 margin-top-8 text-bold float-left text-small">Work Order Status</span>
-                <div class="block gap-8">
-                    <span class="full-width text-medium text-bold color-green float-left">Completed</span>
-                </div>
-                <span class="full-width opacity-5 margin-top-8 text-bold float-left text-small">Work Order Submitted</span>
-                <div class="block gap-8">
-                    <b>12/26/21</b>
-                </div>
-                <span class="full-width opacity-5 margin-top-8 text-bold float-left text-small">Work Order Completed</span>
-                <div class="block gap-8">
-                    <b>12/27/21</b>
-                </div>
-                <svg class="icon position-absolute color-blue color-medium fade-from-bottom-bounce" style="width:24px;height:24px;opacity:0;top:12px;right:12px;"><use xlink:href="#icon-rays"></use></svg>`
-            }
-        }];
-        var info = data_array.filter(item => item.id === data)[0].data;
-        new_poppin = `
-        <div class="additional-options-dismissal" onclick="buildPoppin(null, null, false)"></div>
-        <div class="additional-options info-item text-medium" style="left:-99999px;top:-999999px;opacity:0;max-width:220px" id="${id}">
-            <div class="content">
-                <div>
-                    <p class="full-width title">Invoice Insights</p>
-                    ${info.content}
-                </div>
-            </div>
+            ` : ''}
         </div>`;
     }
     return new_poppin
 };
 
 function buildPoppin(id, reference, show, event, data) {
-    // ID - id of desired poppin
-    // REFERENCE - id for data object in corresponding array
+    // ID - id of desired poppin from map
+    // REFERENCE - id of element clicked to trigger poppin
+    // SHOW - true/false trigger or remove poppin
+    // EVENT - $event from click
+    // DATA - object to map poppin template to
     if (show) {
-        modifyBackgroundForModal(true, reference);
-        var poppin_element = poppinTemplates(id, data);
+       $(reference ? ('#' + reference) : '.nothing').addClass('shrink-back');
+        $('body').css('overflow', 'hidden');
+        // if ID === 'custom', treat DATA as the full poppin template
+        var poppin_element = id === 'custom' ? data : poppinTemplates(id, data);
         $('body').append(poppin_element);
         positionPoppin(id, reference, event);
-    }
-    else {
-        modifyBackgroundForModal(null);
-        $(".additional-options").fadeOut(125, function () { $(this).remove(); })
-        $(".additional-options-image").fadeOut(125, function () { $(this).remove(); })
-        $(".additional-options-dismissal").fadeOut(125, function () { $(this).remove(); })
+    } else {
+        $('.shrink-back').removeClass('shrink-back');
+        $('body').css('overflow', '');
+        $(".additional-options, .additional-options-image, .additional-options-dismissal").fadeOut(125, function () { $(this).remove(); });
     }
 };
 

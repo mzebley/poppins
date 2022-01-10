@@ -1,0 +1,339 @@
+:root {
+    --poppins_blue: #2E62BD;
+    --poppins_blue_medium: #81A0D7;
+    --poppins_highlight: rgba(244,193,200,.475);
+    --poppins_background:rgba(255,255,255,.8575);
+    --poppins_shadow_rgba_numbers: 0, 0, 0;
+    --poppins_border_color: rgba(11, 11, 19, .225);
+}
+
+[data-theme="dark"] {
+    --poppins_blue: #81A0D7;
+    --poppins_blue_medium: #2E62BD;
+    --poppins_highlight: rgba(226,90,110,.25);
+    --poppins_background:rgba(0,0,0,.7575);
+    --poppins_shadow_rgba_numbers: 85, 85, 85;
+    --poppins_border_color: rgba(211, 211, 219, .295);
+}
+
+$poppins_transition_timing: cubic-bezier(0.280, 0.840, 0.420, 1);
+$poppins_blur: blur(20px) saturate(2);
+$poppins_desaturate: saturate(.175) brightness(.775) blur(2px);
+$poppins_box_shadow: 0px 0.1px 0.9px rgba(var(--poppins_shadow_rgba_numbers), 0.05),
+0px 0.3px 2.1px rgba(var(--poppins_shadow_rgba_numbers), 0.036),
+0px 0.5px 4px rgba(var(--poppins_shadow_rgba_numbers), 0.03),
+0px 0.9px 7.1px rgba(var(--poppins_shadow_rgba_numbers), 0.025),
+0px 1.7px 13.4px rgba(var(--poppins_shadow_rgba_numbers), 0.02),
+0px 4px 32px rgba(var(--poppins_shadow_rgba_numbers), 0.014)
+;
+
+.poppins-shrink-back {
+    transform: scale3d(.975,.975,1);
+}
+
+.poppins-item {
+    position: fixed;
+    transform-origin: top right;
+    width: 220px;
+    min-height: 40px;
+    background: var(--poppins_background);
+    backdrop-filter: $poppins_blur;
+    box-shadow: $poppins_box_shadow;
+    border-radius: 16px;
+    max-height: 325px;
+    overflow: scroll;
+    z-index: 9;
+    transition: transform .125s $poppins_transition_timing, opacity .125s $poppins_transition_timing;
+    -webkit-overflow-scrolling: touch;
+
+    &.from-left {
+        transform-origin: top left;
+
+        &.from-bottom {
+            transform-origin: bottom left !important;
+        }
+    }
+
+    &.from-bottom {
+        transform-origin: bottom right !important;
+    }
+
+    &.center {
+        transform-origin: top center;
+    }
+
+    &.small {
+        width: 150px;
+    }
+
+    >div {
+        width: 100%;
+        float: left;
+        display: grid;
+        gap: 12px;
+        grid-template-columns: 1fr 30px;
+        padding: 12px;
+        cursor: pointer;
+        border-bottom: 1px solid var(--poppins_border_color);
+        transition: background .225s $poppins_transition_timing .075s;
+
+        > div {
+            align-self: center;
+        }
+
+        &.content {
+            grid-template-columns: 1fr;
+            cursor: default;
+            border-bottom: none;
+            padding-bottom: 16px;
+
+            p {
+                line-height: 125%;
+                font-weight: normal;
+                padding: 4px 0;
+
+                &.title {
+                    font-size: 100%;
+                    font-weight: 600;
+                    margin-bottom: 8px;
+                    width:100%;
+                }
+
+            }
+        }
+
+        p {
+            font-weight: 600;
+            font-size: 85%;
+            line-height: 18px;
+            padding: 2px 0;
+            width:100%;
+        }
+
+        >div>svg {
+            opacity:.75;
+            width: 30px;
+            height: 22px;
+            &.larger {
+                height: 25px;
+            }
+        }
+
+        &:last-of-type {
+            border-bottom: none;
+        }
+
+        &#learn-more-btn {
+            position: sticky;
+            opacity: 0;
+            bottom: 0;
+            float: left;
+            top: initial;
+            background-color: var(--poppins_background);
+            backdrop-filter: $poppins_blur;
+            animation: poppins_fade_from_bottom .125s forwards $poppins_transition_timing .25s;
+            border-top: 1px solid var(--poppins_border_color);
+            > div {
+                align-self: center;
+            }
+        }
+    }
+}
+
+.poppins-dismissal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    z-index: 8;
+    background:rgba(0,0,0,.025);
+    backdrop-filter: $poppins_desaturate;
+    animation: poppins_fade_in .225s forwards $poppins_transition_timing;
+}
+
+.poppins-image {
+    position: fixed;
+    z-index: 9;
+    height: 100px;
+    width: 100px;
+    display: block;
+    background-size: cover;
+    background-position: left center;
+    background-color: var(--poppins_background);
+    border-radius: 16px;
+    box-shadow: $poppins_box_shadow;
+    opacity: 0;
+    transition: transform .125s $poppins_transition_timing, opacity .125s $poppins_transition_timing;
+    transform-origin: left bottom;
+    .square-jelly-box {
+        position:absolute;
+        top:calc(50% - 16px);
+        left:calc(50% - 16px);
+    }
+    &.from-right {
+        transform-origin: right bottom;
+    }
+    &.center {
+        transform-origin: center bottom;
+    }
+    &.activate {
+        transform: scale3d(1,1,1) !important;
+        opacity:1;
+        .square-jelly-box {
+            animation: poppins_fade_out .25s forwards $poppins_transition_timing;
+        }
+        &.underneath {
+            transform-origin: left top;
+            &.from-right {
+                transform-origin: right top;
+            }
+            &.center {
+                transform-origin: center top;
+            }
+        }
+    }
+    &.rectangle {
+        width: 175px;
+    }
+}
+
+@media only screen and (min-width: 801px) {
+    .poppins {
+        width:325px;
+    }
+    .poppins-image {
+        height: 180px;
+        width: 180px;
+        &.rectangle {
+            width: 300px;
+        }
+    }
+}
+
+.poppins-content-indicator {
+    background: var(--poppins-highlight);
+    padding: 0 2px;
+    border-radius: 8px;
+    display: inline-block;
+    transition: transform .225s $poppins_transition_timing, border-color .225s $poppins_transition_timing;
+    cursor:pointer;
+    border:1px solid rgba(110,110,110,.125);
+    &:active {
+        transform: scale3d(.975,.975,1);
+    }
+}
+
+@media (hover: hover) and (pointer: fine) {
+    .poppins-item > div:not(.content):hover {
+        background:var(--theme-light);
+    }
+    .poppins-content-indicator:hover {
+        border-color:rgba(110,110,110,.5);
+    }
+}
+
+
+.square-jelly-box,
+.square-jelly-box > div {
+    position: relative;
+}
+.square-jelly-box {
+    display: block;
+    font-size: 0;
+    color: var(--poppins_blue_medium);
+    float:left;
+}
+.square-jelly-box.dark {
+    color: #333;
+}
+.square-jelly-box > div {
+    display: inline-block;
+    float: none;
+    background-color: currentColor;
+    border: 0 solid currentColor;
+}
+.square-jelly-box {
+    width: 32px;
+    height: 32px;
+}
+.square-jelly-box > div:nth-child(1),
+.square-jelly-box > div:nth-child(2) {
+    position: absolute;
+    left: 0;
+    width: 100%;
+}
+.square-jelly-box > div:nth-child(1) {
+    top: -25%;
+    z-index: 1;
+    height: 100%;
+    border-radius: 10%;
+            animation: square-jelly-box-animate .6s -.1s linear infinite;
+}
+.square-jelly-box > div:nth-child(2) {
+    bottom: -9%;
+    height: 10%;
+    background: #000;
+    border-radius: 50%;
+    opacity: .2;
+            animation: square-jelly-box-shadow .6s -.1s linear infinite;
+}
+
+@keyframes poppins_fade_in {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes poppins_fade_out {
+    from {
+        opacity: 1;
+    }
+
+    to {
+        opacity: 0;
+    }
+}
+
+@keyframes poppins_fade_from_bottom {
+    from {
+        transform: translateY(25%);
+        opacity: 0
+    }
+
+    to {
+        transform: translateY(0);
+        opacity: 1
+    }
+}
+
+@keyframes square-jelly-box-animate {
+    17% {
+        border-bottom-right-radius: 10%;
+    }
+    25% {
+                transform: translateY(25%) rotate(22.5deg);
+    }
+    50% {
+        border-bottom-right-radius: 100%;
+                transform: translateY(50%) scale(1, .9) rotate(45deg);
+    }
+    75% {
+                transform: translateY(25%) rotate(67.5deg);
+    }
+    100% {
+                transform: translateY(0) rotate(90deg);
+    }
+}
+@keyframes square-jelly-box-shadow {
+    50% {
+        -webkit-transform: scale(1.25, 1);
+           -moz-transform: scale(1.25, 1);
+             -o-transform: scale(1.25, 1);
+                transform: scale(1.25, 1);
+    }
+}

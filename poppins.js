@@ -1,3 +1,5 @@
+document.querySelector('head').innerHTML += '<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/mzebley/poppins@main/dist/poppins.min.css" type="text/css"/>';
+
 let arrow_svg = `<svg viewBox="0 0 32 32" role="img" aria-label="An arrow icon." class="icon blue"><path d="M32 16.010q0-1.452-0.935-2.387l-9.924-9.924q-1.014-1.014-2.227-1.014-1.472 0-2.347 0.885t-0.875 2.178q0 0.776 0.318 1.333t0.776 1.014l3.58 3.54 3.878 3.62 1.71-2.168-7.259-0.338h-15.234q-1.571 0-2.516 0.895t-0.945 2.367 0.945 2.367 2.516 0.895h15.234l7.259-0.338-1.71-2.168-3.878 3.62-3.58 3.52q-0.457 0.438-0.776 1.004t-0.318 1.342q0 1.293 0.875 2.178t2.347 0.885q1.213 0 2.227-1.014l9.924-9.904q0.935-0.935 0.935-2.387z"></path></svg>`;
 
 function poppinTemplates(id, data) {

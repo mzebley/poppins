@@ -1,4 +1,4 @@
-document.querySelector('head').innerHTML += '<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/mzebley/poppins@main/dist/poppins%400.1.7.min.css" type="text/css"/>';
+document.querySelector('head').innerHTML += '<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/mzebley/poppins@main/dist/poppins%400.1.8.min.css" type="text/css"/>';
 
 if (!document.querySelector('script[src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"]')) document.querySelector('head').innerHTML += '<script crossorigin="anonymous" src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>';
 
